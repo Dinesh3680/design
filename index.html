@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designify - Sell Your Models</title>
+
+    <!-- Google Fonts (Royal fonts) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #f1f2b5, #135058);
+            color: #fff;
+            overflow-x: hidden;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Header Section */
+        header {
+            margin-top: -20px;
+            position: relative;
+            text-align: center;
+            padding: 40px 0;
+            background-image: url('images/main.jpg'); /* Replace with your background image URL */
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        /* Logo (Fixed in Left Corner) */
+        .logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 100px;
+            z-index: 10;
+        }
+
+        header h1 {
+            font-size: 50px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        header p {
+            font-size: 20px;
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+
+        /* Main Content */
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            gap: 30px;
+            flex-wrap: wrap;  /* Allow content to wrap on smaller screens */
+        }
+
+        .card {
+            background: #222;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            width: 300px;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .card h3 {
+            margin-top: 15px;
+            font-size: 22px;
+        }
+
+        .card p {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #aaa;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #ff7f50, #ff6a00);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(45deg, #ff6a00, #ff7f50);
+        }
+
+        /* Footer Section */
+        footer {
+            background: #111;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        footer .developer-info {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        /* Models Section */
+        .models-section {
+            display: none; /* Initially hidden */
+            width: 100%;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .models-section.active {
+            display: block;
+            opacity: 100;
+        }
+
+        .model-pages {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 50px;
+        }
+
+        .model-card {
+            background: #222;
+            padding: 20px;
+            border-radius: 15px;
+            width: 220px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .model-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+
+
+        .model-card2 {
+            background: linear-gradient(45deg, #ff7f50, #ff6a00);
+            padding: 15px 30px;
+            border-radius: 50px;
+            width: 220px;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .model-card2:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+
+
+
+        .model-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .model-card h3 {
+            margin-top: 15px;
+            font-size: 20px;
+        }
+
+        .model-card p {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .model-card .price {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .model-card .btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            /* Header adjustments for small screens */
+            header h1 {
+                font-size: 36px;
+                padding: 50px 20px;
+            }
+
+            header p {
+                font-size: 18px;
+            }
+
+            .content {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .card {
+                width: 90%; /* Make the cards full-width on mobile */
+                margin-bottom: 20px;
+            }
+
+            /* Model pages */
+            .model-pages {
+                padding: 20px;
+                gap: 10px;
+            }
+
+            .model-card {
+                width: 100%; /* Full width for cards on mobile */
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Further reduce header text and padding on extra small screens */
+            header h1 {
+                font-size: 28px;
+                padding: 30px 20px;
+            }
+
+            header p {
+                font-size: 16px;
+            }
+
+            .card {
+                width: 100%;
+            }
+
+            .model-card {
+                width: 100%;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Scroll to Top Button */
+        #scrollToTopBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ff7f50;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: #ff6a00;
+        }
+
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #222;
+            padding: 30px;
+            border-radius: 15px;
+            width: 50%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .modal-content h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .modal-content p {
+            font-size: 16px;
+            color: #aaa;
+        }
+
+        .modal-content .close {
+            margin-top: 20px;
+            background-color: #ff7f50;
+            padding: 10px 20px;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        .modal-content .close:hover {
+            background-color: #ff6a00;
+        }
+
+
+        .modal-content .contact {
+            margin-top: 20px;
+            background-color: #0088cc;
+            padding: 10px 20px;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        .modal-content .contact:hover {
+            background-color: #00a0ff;
+        }
+
+
+        .modal-content .join {
+            margin-top: 20px;
+            background-color: #d9de36;
+            padding: 10px 20px;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        .modal-content .join:hover {
+            background-color: #d5db02;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Logo (Fixed in Left Corner) -->
+    <img src="images/logo.png" alt="Logo" class="logo">
+
+    <!-- Header -->
+    <header>
+        <h1>Welcome to Designify</h1>
+        <p>Your Ultimate Destination for Stunning 2D, 3D Models & Software</p>
+        <a href="#models" class="btn" aria-label="Explore 3D, 2D models, and Software">Explore Our Models</a><br><br>
+        <center><div class="model-card2" style="background-color: #4CAF50;" onclick="openModal('Contact Developer', 'Text us on telegram for any quiries or join our telegram group to order custom designs or join our team!')">Contact Owner</div></center><br>
+        You can buy models directly from this site or by contacting the owner from above button!
+    </header>
+
+    <!-- Main Content Section -->
+    <section id="models" class="content">
+        <div class="card">
+            <img src="images/3d.jpg" alt="3D Model">
+            <h3>3D Models</h3>
+            <p>Explore high-quality 3D models for your creative projects.</p>
+            <a href="javascript:void(0);" onclick="showModels('3dmodels');" class="btn" aria-label="View 3D Models">View 3D Models</a>
+        </div>
+
+        <div class="card">
+            <img src="images/2d.jpg" alt="2D Model">
+            <h3>2D Models</h3>
+            <p>Get exclusive 2D illustrations for your design needs.</p>
+            <a href="javascript:void(0);" onclick="showModels('2dmodels');" class="btn" aria-label="View 2D Models">View 2D Models</a>
+        </div>
+
+        <div class="card">
+            <img src="images/sw.jpg" alt="Software">
+            <h3>Softwares</h3>
+            <p>Find the best tools and software for your modeling needs.</p>
+            <a href="javascript:void(0);" onclick="showModels('software');" class="btn" aria-label="View Softwares">View Softwares</a>
+        </div>
+    </section>
+
+    <!-- Models Container -->
+    <section class="models-container">
+        <!-- 3D Models Page -->
+        <div id="3dmodels" class="models-section">
+            <center><h2>3D Models</h2></center>
+            <div class="model-pages">
+                <!-- Model Cards -->
+                <div class="model-card">
+                    <img src="images/door.jpg" alt="3D Door Package">
+                    <h3>3D Doors Package</h3>
+                    <p>High-quality 3D model ready for your projects.</p>
+                    <a href="https://telegram.me/+GtEmCNCG2Ig5MTdl" class="btn" aria-label="View details of 3D Doors Package">View PDF</a>
+                    <div class="price">₹599</div>
+                    <a href="https://superprofile.bio/vp/65d42f5267e67d0013cc3abb" class="btn" aria-label="Buy 3D Doors Package">Buy Now</a>
+                </div>
+                <!-- Add more 3D models here -->
+                <div class="model-card">
+                    <img src="images/border.jpg" alt="3D Borders Package">
+                    <h3>3D Borders Package</h3>
+                    <p>High-quality 3D model ready for your projects.</p>
+                    <a href="https://telegram.me/+GtEmCNCG2Ig5MTdl" class="btn" aria-label="View details of 3D Borders Package">View PDF</a>
+                    <div class="price">₹599</div>
+                    <a href="https://superprofile.bio/vp/65d42f5267e67d0013cc3abb" class="btn" aria-label="Buy 3D Borders Package">Buy Now</a>
+                </div>
+                <div class="model-card">
+                    <img src="images/wp.jpg" alt="3D WallPanels Package">
+                    <h3>3D WallPanels Package</h3>
+                    <p>High-quality 3D model ready for your projects.</p>
+                    <a href="https://telegram.me/+GtEmCNCG2Ig5MTdl" class="btn" aria-label="View details of 3D WallPanels Package">View PDF</a>
+                    <div class="price">₹599</div>
+                    <a href="https://superprofile.bio/vp/65d42f5267e67d0013cc3abb" class="btn" aria-label="Buy 3D WallPanels Package">Buy Now</a>
+                </div>
+                <div class="model-card">
+                    <img src="images/item.jpg" alt="3D Items Package I">
+                    <h3>3D Items Package I</h3>
+                    <p>High-quality 3D model ready for your projects.</p>
+                    <a href="https://telegram.me/+GtEmCNCG2Ig5MTdl" class="btn" aria-label="View details of 3D Items Package I">View PDF</a>
+                    <div class="price">₹599</div>
+                    <a href="https://superprofile.bio/vp/65d42f5267e67d0013cc3abb" class="btn" aria-label="3D Items Package I">Buy Now</a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 2D Models Page -->
+        <div id="2dmodels" class="models-section">
+            <center><h2>2D Models</h2></center>
+            <div class="model-pages">
+                <!-- Model Cards -->
+                <div class="model-card">
+                    <img src="images/2dm.jpg" alt="2D Model">
+                    <h3>2D Model</h3>
+                    <p>Stunning 2D illustrations for your design needs.</p>
+                    <a href="https://telegram.me/+GtEmCNCG2Ig5MTdl" class="btn" aria-label="View details of 2D Model">View PDF</a>
+                    <div class="price">₹599</div>
+                    <a href="https://superprofile.bio/vp/65d42f5267e67d0013cc3abb" class="btn" aria-label="Buy 2D Model">Buy Now</a>
+                </div>
+                <!-- Add more 2D models here -->
+            </div>
+        </div>
+
+        <!-- Software Page -->
+        <div id="software" class="models-section">
+            <center><h2>Softwares</h2></center>
+            <div class="model-pages">
+                <!-- Software Cards -->
+                <div class="model-card">
+                    <img src="images/ac.jpeg" alt="Software 1">
+                    <h3>Software 1</h3>
+                    <p>High-end software for creating stunning models. Contact owner for software installation.</p>
+                    <a href="#" class="btn" aria-label="View details of Software 1">View PDF</a>
+                    <div class="price">₹499</div>
+                    <a href="#" class="btn" aria-label="Buy Software 1">Buy Now</a>
+                </div>
+                <!-- Add more software here -->
+            </div>
+        </div>
+    </section>
+
+
+<section>
+<h3 style="color:red;"> <center><u>**Attetion**</u><center>You'll be redirected to a telegram group/channel after successfull payment where you can find all the above designs, Please join that group once redirected.<br>
+Buy any one product & you'll get all designs at that place as site is under maintenance.<br>
+</h3>
+</section>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Designify. All Rights Reserved.</p>
+        <div class="developer-info">Developed by Dinesh Jangra</div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" title="Scroll to top">&uarr;</button>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle"></h3>
+            <p id="modalDescription"></p>
+            <button class="contact" onclick="openLink()">Send a message!</button>
+            <button class="join" onclick="openLink2()">Join Group!</button>
+            <button class="close" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Scroll to Top Button
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        window.onscroll = function() {
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                scrollToTopBtn.style.display = "block";
+            } else {
+                scrollToTopBtn.style.display = "none";
+            }
+        };
+
+        scrollToTopBtn.onclick = function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        // Function to show model sections
+        function showModels(modelType) {
+            const models = document.querySelectorAll('.models-section');
+            models.forEach(model => {
+                model.classList.remove('active');
+            });
+            
+            const targetSection = document.getElementById(modelType);
+            targetSection.classList.add('active');
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Modal functionality
+        function openModal(title, description) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDescription').innerText = description;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        function openLink() {
+    // Replace the URL below with the external link you want to open
+    window.location.href = "https://telegram.me/dj3680";
+  }
+
+        function openLink2() {
+    // Replace the URL below with the external link you want to open
+    window.location.href = "https://telegram.me/cncdesignmessages";
+  }
+
+
+    </script>
+
+</body>
+</html>
