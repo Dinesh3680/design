@@ -91,8 +91,8 @@
                 <p class="switch" onclick="toggleForms()">Already registered? Login here</p>
     </div>
 
-    <script>
-const scriptURL = "https://script.google.com/macros/s/AKfycbxYruA27NeFe-yOjofDcY2HI2Pv32fsyo_OjdQohg5IoT6brmmFK288FdU_VsxYDt7E/exec"; // Replace with your Web App URL
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbwJJYcvHjMZ1JZryX7wT7AeI4zPQAKbGACFVDloH0oNl0ae4Us9gTCqRHgSUDBXfCAa/exec"; // Replace with your Web App URL
 
 document.getElementById("registerForm").addEventListener("submit", function(event) {
     event.preventDefault();  // Prevent page reload
@@ -116,20 +116,14 @@ document.getElementById("registerForm").addEventListener("submit", function(even
 
     fetch(scriptURL, {
         method: "POST",
-        body: JSON.stringify({ name, email, password }),
-        headers: { "Content-Type": "application/json" }
+        mode: "no-cors", // Important: Prevents CORS issues
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password })
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Server Response:", data);
-        if (data.status === "Success") {
-            message.textContent = "✅ Registration Successful!";
-            message.style.color = "green";
-            document.getElementById("registerForm").reset();
-        } else {
-            message.textContent = "❌ " + data.error;
-            message.style.color = "red";
-        }
+    .then(() => {
+        message.textContent = "✅ Registration Successful!";
+        message.style.color = "green";
+        document.getElementById("registerForm").reset();
     })
     .catch(error => {
         console.error("Fetch Error:", error);
@@ -138,8 +132,6 @@ document.getElementById("registerForm").addEventListener("submit", function(even
     });
 });
 </script>
-
-
 
 </body>
 </html>
