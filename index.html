@@ -92,7 +92,7 @@
     </div>
 
     <script>
-const scriptURL = "https://script.googleusercontent.com/macros/echo?user_content_key=3CIz8W6pLmhlSEO5zNA4adTF6KqbxEu1FEEQDgOL_mwL9O6RtMysHyqMDa0yC7SHlAiEkOkdYvNbaCas_63f_QGW5tbCfqYNm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnM0g8Lcyx6zYQWb8F4NUnGO2RxGRWnlijX6h17xDWZLOTR9r1NvK6LWUJfurQs_MBR5xoWwSRaYNeSmsZ1WxoEx7kHjrUO7yjg&lib=MPs6tVQYDVa8PzlQKV1kHR9hscT5_fJrq"; // Replace with your Web App URL
+const scriptURL = "https://script.google.com/macros/s/AKfycbyK_dURiojyTucoulH_0xpQL_hSvwA3ays0DMNz-r5OXuZgujzRA5O1zjWb_KNmXIE9/exec"; // Replace with your Web App URL
 
 document.getElementById("registerForm").addEventListener("submit", function(event) {
     event.preventDefault();  // Prevent page reload
@@ -119,15 +119,15 @@ document.getElementById("registerForm").addEventListener("submit", function(even
         body: JSON.stringify({ name, email, password }),
         headers: { "Content-Type": "application/json" }
     })
-    .then(response => response.text())
+    .then(response => response.json())
     .then(data => {
         console.log("Server Response:", data);
-        if (data.includes("Success")) {
+        if (data.status === "Success") {
             message.textContent = "✅ Registration Successful!";
             message.style.color = "green";
             document.getElementById("registerForm").reset();
         } else {
-            message.textContent = "❌ " + data;
+            message.textContent = "❌ " + data.error;
             message.style.color = "red";
         }
     })
@@ -138,6 +138,7 @@ document.getElementById("registerForm").addEventListener("submit", function(even
     });
 });
 </script>
+
 
 </body>
 </html>
